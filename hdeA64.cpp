@@ -1,6 +1,9 @@
 #include <stdint.h>
 #include <stdarg.h>
 #include <string.h>
+
+#include <localUtil.h>
+
 #include "hdeA64.h"
 
 int parseLIinst(uint32_t pc, hde_t* instTemp)
@@ -124,7 +127,7 @@ int parseByEnc(uint32_t pc, hde_t* instTemp)
             {
                 lsl_value = 12;
             }
-            instTemp->immLarge = instTemp->imm19 << lsl_value + 2;
+            instTemp->immLarge = instTemp->imm19 << (lsl_value + 2);
             instTemp->immLarge |= GET_ARM64_OP(pc, RI_IMMLO) << lsl_value;
             if (pc & 0x00800000)
             {

@@ -225,19 +225,6 @@
     (GET_ARM64_ENC(CUR_INST, PC_PART, OP_TYPE) == ARM64_ ## OP_TYPE)
 
 
-#define SAFE_BAIL(x) \
-if (x) \
-{ \
-    goto fail; \
-}
-
-#define SAFE_DEL(x) \
-    if (x) \
-    { \
-        delete x; \
-        x = 0; \
-    }
-
 typedef enum
 {
     e_rd=1,
