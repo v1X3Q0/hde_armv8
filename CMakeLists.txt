@@ -1,1 +1,1 @@
-add_library(hdeA64 hdeA64.cpp)
+add_library(hdeA64 STATIC hdeA64.cpp)
