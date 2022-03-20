@@ -1,1 +1,10 @@
+cmake_minimum_required(VERSION 3.0.0)
+project(hdeA64 VERSION 0.1.0)
+
+if(NOT DEFINED ANDROID_TOOL_BASE)
+    message(FATAL_ERROR "need ANDROID_TOOL_BASE")
+endif()
+
 add_library(hdeA64 STATIC hdeA64.cpp)
+target_include_directories(hdeA64 PRIVATE
+    ${ANDROID_TOOL_BASE}/common/local_util)
