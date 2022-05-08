@@ -43,6 +43,8 @@
 #define ARM64_IMMS_MASK      0x0000fc00
 #define ARM64_IMMS_SHIFT     10
 
+#define ARM64_IMM6_MASK         0x0000fc00
+#define ARM64_IMM6_SHIFT        9
 #define ARM64_IMM9_MASK         0x001ff000
 #define ARM64_IMM9_SHIFT        12
 #define ARM64_IMM12_MASK        0x003ffc00
@@ -89,6 +91,7 @@
 #define ARM64_DPREG_OP0_2SRC    0x0
 #define ARM64_DPREG_OP0_1SRC    0x1
 
+// this seems to dictate if a shifted or extended operation
 #define ARM64_DPREG_OP1_MASK    0x10000000
 #define ARM64_DPREG_OP1_SHIFT   28
 // shift or extend instructions have a 0, the rest are 1
@@ -104,6 +107,7 @@
 // noticed that the instructions covered here are arithmetic,
 // they just don't seem dependent on the register that the
 // shift or extend instructions, SER, did
+// add subtract, eval, no conditional
 #define ARM64_DPREG_OP2_ANS     0x0
 #define ARM64_DPREG_OP2_LSR_MASK    0x8
 #define ARM64_DPREG_OP2_LSR     0x0
@@ -114,6 +118,7 @@
 #define ARM64_DPREG_OP3_MASK    0x0000fc00
 #define ARM64_DPREG_OP3_SHIFT   10
 #define ARM64_DPREG_OP3_GEN_MASK    0x3f
+// add sub with carry
 #define ARM64_DPREG_OP3_ASC     0x0
 
 // data processing immediate group
@@ -228,11 +233,14 @@
 typedef enum
 {
     e_rd=1,
-    e_rn=1 << 1,
-    e_imms=1 << 2,
-    e_immr=1 << 3,
-    e_immLarge=1 << 4
+    e_rn=e_rd << 1,
+    e_rm=e_rn << 1,
+    e_imms=e_rm << 1,
+    e_immr=e_imms << 1,
+    e_immLarge=e_immr << 1
 } val_set_t;
+
+#define VAL_SET_REGMASK (e_rd | e_rn | e_rm)
 
 //      dpimm   br      ls      dpr     dps
 // enc  100x    101x    x1x0    x101    x111
@@ -368,5 +376,12 @@ uint32_t opSet(ENCODE_E encoding, int nargs, ...);
     DSTOP.ENCODE.OP0 = ARM64_ ## ENCODE ## _OP0_ ## OP_0; \
     DSTOP.ENCODE.OP1 = ARM64_ ## ENCODE ## _OP1_ ## OP_1; \
     DSTOP.ENCODE.OP2 = ARM64_ ## ENCODE ## _OP2_ ## OP_2;
+
+#define ENCODE_OP3_INST(DSTOP, ENCODE, OP_0, OP_1, OP_2, OP_3) \
+    DSTOP.encode = E_ ## ENCODE; \
+    DSTOP.ENCODE.OP0 = ARM64_ ## ENCODE ## _OP0_ ## OP_0; \
+    DSTOP.ENCODE.OP1 = ARM64_ ## ENCODE ## _OP1_ ## OP_1; \
+    DSTOP.ENCODE.OP2 = ARM64_ ## ENCODE ## _OP2_ ## OP_2; \
+    DSTOP.ENCODE.OP3 = ARM64_ ## ENCODE ## _OP3_ ## OP_3;
 
 #endif

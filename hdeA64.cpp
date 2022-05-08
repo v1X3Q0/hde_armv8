@@ -24,6 +24,15 @@ int parseRRImm9(uint32_t pc, hde_t* instTemp)
     return 0;
 }
 
+int parseRRIRmm6(uint32_t pc, hde_t* instTemp)
+{
+    instTemp->rd = GET_ARM64_OP(pc, RD);
+    instTemp->rn = GET_ARM64_OP(pc, RN);
+    instTemp->imm6 = GET_ARM64_OP(pc, IMM6);
+    instTemp->rm = GET_ARM64_OP(pc, RM);
+    return 0;
+}
+
 int parseRRImm12(uint32_t pc, hde_t* instTemp)
 {
     instTemp->imm12 = GET_ARM64_OP(pc, IMM12);
@@ -152,13 +161,14 @@ int parseByEnc(uint32_t pc, hde_t* instTemp)
         instTemp->encode = E_DPREG;
         if ENCODE_FILTER(FT, pc, instTemp, DPREG, OP1, GEN, SER)
         {
+            // pretty much a mov instruction, -, SER, LSR, -
             if ENCODE_FILTER(FT, pc, instTemp, DPREG, OP2, LSR, LSR)
             {
-
+                parseRRIRmm6(pc, instTemp);
             }
             else if ENCODE_FILTER(FT, pc, instTemp, DPREG, OP2, ASSE, ASS)
             {
-                
+                parseRRIRmm6(pc, instTemp);
             }
             else if ENCODE_FILTER(FT, pc, instTemp, DPREG, OP2, ASSE, ASE)
             {
