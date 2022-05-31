@@ -259,7 +259,7 @@ typedef enum
 #define UINT8_SZT uint8_t
 #define UINT16_SZT uint16_t
 #define UINT32_SZT uint32_t
-#define SSZT_SZT ssize_t
+#define SSZT_SZT signed long
 #endif
 
 typedef enum
@@ -316,7 +316,13 @@ typedef enum
         }; \
     }
 
-typedef HDEA64_OPCODE __attribute__ ((aligned (1))) __attribute__((packed, aligned(1))) hdea64_opcode;
+#ifdef _WIN32
+#pragma pack(push, 1)
+typedef HDEA64_OPCODE hdea64_opcode;
+#pragma pack(pop)
+#else
+typedef HDEA64_OPCODE __attribute__((aligned(1))) __attribute__((packed, aligned(1))) hdea64_opcode;
+#endif
 
 typedef struct
 {
