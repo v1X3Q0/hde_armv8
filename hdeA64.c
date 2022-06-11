@@ -6,7 +6,7 @@
 
 #include "hdeA64.h"
 
-int parseLIinst(uint32_t pc, hde_t* instTemp)
+int parseLIinst(uint32_t pc, hdeA64_t* instTemp)
 {
     instTemp->immr = GET_ARM64_OP(pc, IMMR);
     instTemp->imms = GET_ARM64_OP(pc, IMMS);
@@ -16,7 +16,7 @@ int parseLIinst(uint32_t pc, hde_t* instTemp)
 }
 
 // load store immediate with 9 bit immediate, a 5 bit source reg and 5 bit dest reg
-int parseRRImm9(uint32_t pc, hde_t* instTemp)
+int parseRRImm9(uint32_t pc, hdeA64_t* instTemp)
 {
     instTemp->imm9 = GET_ARM64_OP(pc, IMM9);
     instTemp->rn = GET_ARM64_OP(pc, RN);
@@ -24,7 +24,7 @@ int parseRRImm9(uint32_t pc, hde_t* instTemp)
     return 0;
 }
 
-int parseRRIRmm6(uint32_t pc, hde_t* instTemp)
+int parseRRIRmm6(uint32_t pc, hdeA64_t* instTemp)
 {
     instTemp->rd = GET_ARM64_OP(pc, RD);
     instTemp->rn = GET_ARM64_OP(pc, RN);
@@ -33,7 +33,7 @@ int parseRRIRmm6(uint32_t pc, hde_t* instTemp)
     return 0;
 }
 
-int parseRRImm12(uint32_t pc, hde_t* instTemp)
+int parseRRImm12(uint32_t pc, hdeA64_t* instTemp)
 {
     instTemp->imm12 = GET_ARM64_OP(pc, IMM12);
     instTemp->rn = GET_ARM64_OP(pc, RN);
@@ -41,21 +41,21 @@ int parseRRImm12(uint32_t pc, hde_t* instTemp)
     return 0;
 }
 
-int parseImm16(uint32_t pc, hde_t* instTemp)
+int parseImm16(uint32_t pc, hdeA64_t* instTemp)
 {
     instTemp->imm16 = GET_ARM64_OP(pc, IMM16);
     instTemp->rd = GET_ARM64_OP(pc, RD);
     return 0;
 }
 
-int parseImm19(uint32_t pc, hde_t* pcParsed)
+int parseImm19(uint32_t pc, hdeA64_t* pcParsed)
 {
     pcParsed->imm19 = GET_ARM64_OP(pc, IMM19);
     pcParsed->rd = GET_ARM64_OP(pc, RD);
     return 0;
 }
 
-int parseImm26(uint32_t pc, hde_t* pcParsed)
+int parseImm26(uint32_t pc, hdeA64_t* pcParsed)
 {
     pcParsed->imm26 = GET_ARM64_OP(pc, IMM26);
     if (pcParsed->imm26 & 0x02000000)
@@ -65,13 +65,13 @@ int parseImm26(uint32_t pc, hde_t* pcParsed)
     return 0;
 }
 
-int parseByEnc(uint32_t pc, hde_t* instTemp)
+int parseByEnc(uint32_t pc, hdeA64_t* instTemp)
 {
     int result = -1;
     int lsl_value = 0;
 
     SAFE_BAIL(instTemp == 0);
-    memset(instTemp, 0, sizeof(hde_t));
+    memset(instTemp, 0, sizeof(hdeA64_t));
 
     // if ((((pc & ARM64_INSTCODE_MASK) >> ARM64_INSTCODE_SHIFT) & ARM64_LS_ENC_MASK) == ARM64_LS_ENC)
 

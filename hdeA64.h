@@ -358,9 +358,9 @@ typedef struct
 // hde64_opcode was a size_t, but it seems to have worked itself out.
 // } __attribute__ ((aligned (1))) __attribute__((packed, aligned(1))) hdeA64_t;
 
-#define hde_t hdeA64_t
+// #define hde_t hdeA64_t
 
-int parseByEnc(uint32_t pc, hde_t* instTemp);
+int parseByEnc(uint32_t pc, hdeA64_t* instTemp);
 #define parseInst parseByEnc
 
 uint32_t opSet(ENCODE_E encoding, int nargs, ...);
