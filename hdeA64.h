@@ -360,10 +360,17 @@ typedef struct
 
 // #define hde_t hdeA64_t
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
 int parseByEnc(uint32_t pc, hdeA64_t* instTemp);
-#define parseInst parseByEnc
-
 uint32_t opSet(ENCODE_E encoding, int nargs, ...);
+#ifdef __cplusplus
+}
+#endif
+
+#define parseInst parseByEnc
 
 #define ENCODE_OP0_INST(DSTOP, ENCODE, OP_0) \
     DSTOP.encode = E_ ## ENCODE; \
