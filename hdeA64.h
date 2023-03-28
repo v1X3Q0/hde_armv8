@@ -238,7 +238,7 @@ typedef enum
     e_imms=e_rm << 1,
     e_immr=e_imms << 1,
     e_immLarge=e_immr << 1
-} val_set_t;
+} val_set_A64_t;
 
 #define VAL_SET_REGMASK (e_rd | e_rn | e_rm)
 
