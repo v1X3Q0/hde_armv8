@@ -370,7 +370,7 @@ uint32_t opSet(ENCODE_E encoding, int nargs, ...);
 }
 #endif
 
-#define parseInst parseByEnc
+// #define parseInst parseByEnc
 
 #define ENCODE_OP0_INST(DSTOP, ENCODE, OP_0) \
     DSTOP.encode = E_ ## ENCODE; \
