@@ -162,9 +162,12 @@
 #define ARM64_LS_OP0_RR         0x2
 #define ARM64_LS_OP0_RI         0x3
 #define ARM64_LS_OP0_RL         0x1
+#define ARM64_LS_OP0_RI64_MASK      0xf
+#define ARM64_LS_OP0_RI64       0xf
 
 #define ARM64_LS_OP1_MASK       0x04000000
 #define ARM64_LS_OP1_SHIFT      26
+#define ARM64_LS_OP1_SIMD_MASK      0x1
 #define ARM64_LS_OP1_NULL       0
 
 #define ARM64_LS_OP2_MASK       0x01800000

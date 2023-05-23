@@ -79,7 +79,18 @@ int parseByEnc(uint32_t pc, hdeA64_t* instTemp)
     {
         // instTemp->encode = GET_ARM64_ENC(pc, INSTCODE, LS_ENC);
         instTemp->encode = E_LS;
-        if ENCODE_FILTER(FT, pc, instTemp, LS, OP0, RI, RI)
+        if ENCODE_FILTER(FT, pc, instTemp, LS, OP0, RI64, RI64)
+        {
+            lsl_value = 0;
+            if ENCODE_FILTER(FT, pc, instTemp, LS, OP1, SIMD, NULL)
+            {
+                if (ENCODE_FILTER_NO_SET(pc, LS, OP2, IMM, UIMM) || ENCODE_FILTER_NO_SET(pc, LS, OP2, IMM, IMM))
+                {
+                    parseRRImm12(pc, instTemp);
+                }
+            }
+        }
+        else if ENCODE_FILTER(FT, pc, instTemp, LS, OP0, RI, RI)
         {
             lsl_value = 0;
             if ENCODE_FILTER(FT, pc, instTemp, LS, OP2, IMM, IMM)
@@ -98,7 +109,7 @@ int parseByEnc(uint32_t pc, hdeA64_t* instTemp)
                 parseRRImm12(pc, instTemp);
             }
         }
-        if ENCODE_FILTER(FT, pc, instTemp, LS, OP0, RI, RL)
+        else if ENCODE_FILTER(FT, pc, instTemp, LS, OP0, RI, RL)
         {
             lsl_value = 1;
             if ENCODE_FILTER(FT, pc, instTemp, LS, OP2, IMM, IMM)
