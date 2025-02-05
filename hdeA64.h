@@ -190,8 +190,10 @@
 #define ARM64_LS_OP4_FIX        0x1
 #define ARM64_LS_OP4_UI         0x0
 
-#define ARM64_NOP_OP        0xd503201f
 #define ARM64_ISB_OP        0xd5033fdf
+#define ARM64_MSRI_OP       0xD500401f
+#define ARM64_NOP_OP        0xd503201f
+#define ARM64_PACIBSP_OP    0xd503237f
 
 #define ENC_GET_FIELDGROUP(CUR_INST, ENC, FIELDGROUP) \
     ((pc & ARM64_ ## ENC ## _ ## FIELDGROUP ## _MASK) >> ARM64_ ## ENC ## _ ## FIELDGROUP ## _SHIFT)
