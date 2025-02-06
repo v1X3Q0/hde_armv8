@@ -264,7 +264,11 @@ typedef enum
 #define UINT8_SZT uint8_t
 #define UINT16_SZT uint16_t
 #define UINT32_SZT uint32_t
+#ifdef _WIN32
+#define SSZT_SZT signed long long
+#else
 #define SSZT_SZT signed long
+#endif
 #endif
 
 typedef enum
