@@ -37,4 +37,4 @@ build-windows:
     - mkdir -p build-out
     - cd build-out
     - cmake ..
-    - MSBuild.exe LOCAL_UTIL.sln
+    - MSBuild.exe hdeA64.sln
